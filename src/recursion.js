@@ -115,7 +115,7 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
-  newString = string.toLowerCase().replace(/\s/g, '')
+  var newString = string.toLowerCase().replace(/\s/g, '')
   if(newString.length === 0 || newString.length === 1){
     return true;
   }
@@ -123,7 +123,7 @@ var palindrome = function(string) {
     return palindrome(newString.slice(1, newString.length-1))
   } else {
     return false
-  }
+  }// https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 }
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -132,7 +132,19 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-
+  if (y === 0) {
+    return NaN;
+  }
+  if (x < 0 && y < 0) {
+    return -modulo(-x, -y);
+  }
+  if (x < 0 && y > 0) {
+    return -modulo(-x, y);
+  }
+  if (x < y) {
+    return x;
+  }
+  return modulo(x - y, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -152,6 +164,7 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -160,6 +173,14 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  if(x<0 || y<0){
+    return null
+  } else if(y>x){
+    return gcd(x, y-x)
+  } else if(x<y){
+    return gcd(x-y,y)
+  }// https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
+  return x
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -167,20 +188,48 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  if(str1.length === 0 && str2.length === 0){
+    return true
+  }
+  if(str1[0] === str2[0]){
+    return compareStr(str1.slice(1), str2.slice(1))
+  } else{
+    return false
+  }
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  var array = []
+  if(str.length === 0){
+    return array
+  }
+  if(str.length > 0){
+    array.push(str[0])
+    return array.concat(createArray(str.slice(1)))
+  }
+  return array
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
-};
+  if(array.length === 0){
+    return []
+  }
+  if(array.length > 0){
 
+    return reverseArr(array.slice(1) + array.concat(0))
+  }
+};
+/*  if(string === ""){
+    return "";
+  }
+  return reverse(string.substr(1)) + string.charAt(0)
+};*/
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
-// buildList(7,3) // [7,7,7]
+// buildList(7,3) // [7,7,7]palindrome
 var buildList = function(value, length) {
 };
 
